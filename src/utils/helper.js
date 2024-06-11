@@ -77,6 +77,5 @@ export const endOfDate = (date) => {
     date.setHours(date.getHours() + 23);
     date.setMinutes(date.getMinutes() + 59);
     date.setSeconds(date.getSeconds() + 59);
-    console.log('date  ', date);
     return date;
 }
