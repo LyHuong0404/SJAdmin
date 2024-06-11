@@ -26,7 +26,6 @@ export const remove = async (url, data, options = {}) => {
 };
 
 
-// Interceptor để thêm accessToken vào headers của mỗi yêu cầu
 httprequest.interceptors.request.use(function (config) {
     const token = 'Bearer ' + JSON.parse(localStorage.getItem('user'))?.accessToken;
     if (token) {

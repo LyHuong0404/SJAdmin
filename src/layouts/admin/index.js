@@ -1,18 +1,13 @@
 import { Portal, Box, useDisclosure } from '@chakra-ui/react';
-import Footer from 'components/footer/FooterAdmin.js';
-// Layout components
+
 import Navbar from 'components/navbar/NavbarAdmin.js';
 import Sidebar from 'components/sidebar/Sidebar.js';
 import { SidebarContext } from 'contexts/SidebarContext';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
 import routes from 'routes.js';
 
 
 export default function Dashboard({ children }) {
-	// const { ...rest } = props;
-	const { user } = useSelector((state) => state.auth);
 	const [ fixed ] = useState(false);
 	const [ toggleSidebar, setToggleSidebar ] = useState(false);
 
@@ -110,7 +105,7 @@ export default function Dashboard({ children }) {
 							<Box>
 								<Navbar
 									onOpen={onOpen}
-									logoText={'Horizon UI Dashboard PRO'}
+									logoText={''}
 									brandText={getActiveRoute(routes)}
 									secondary={getActiveNavbar(routes)}
 									message={getActiveNavbarText(routes)}
@@ -123,9 +118,6 @@ export default function Dashboard({ children }) {
 								{children}									
 							</Box>
 					
-						<Box>
-							<Footer />
-						</Box>
 					</Box>
 				</SidebarContext.Provider>
 			</Box>

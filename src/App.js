@@ -6,13 +6,30 @@ import { Fragment, useEffect } from 'react';
 import { ProtectedRoute } from 'components/ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { publicRoutes } from 'routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { endOfDate } from 'utils/helper';
+import ModalAddServicePackage from 'components/modal/ModalAddServicePackage';
 
 function App() {  
-  const { user } = useSelector((state) => state.auth);
+  const { user, show } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate('/admin/dashboard')
+    const handleRefreshLogin = async() => {
+        const storage = await localStorage.getItem("user");
+        const currentDate = new Date();
+        if (storage) {
+            if (currentDate.getTime() > (endOfDate(storage.expireAt))?.getTime()) {
+                await localStorage.removeItem('user');
+                navigate('/auth/log-in');
+            } else {
+                navigate('/admin/dashboard');
+            }
+        } else navigate('/auth/log-in');
+
+    }
+    handleRefreshLogin();
   }, [])
 
   return (
@@ -64,7 +81,9 @@ function App() {
                   />
               );
           })}
-        </Routes>
+      </Routes>
+      {show && <ModalAddServicePackage />}
+      <ToastContainer autoClose={2000} />
     </div>
   );
 }

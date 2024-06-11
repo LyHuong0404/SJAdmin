@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, Route } from "react-router-dom";
-import routes from "routes.js";
-
 import { Box, useColorModeValue } from "@chakra-ui/react";
-
-
 import { SidebarContext } from "contexts/SidebarContext";
 
 

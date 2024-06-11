@@ -1,10 +1,19 @@
 // Chakra imports
-import { Avatar, Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Avatar, Flex, FormControl, FormLabel, Input, Text, useColorModeValue } from "@chakra-ui/react";
+import { updateAvatar } from "actions/authActions";
+import Loading from "components/Loading";
 import Card from "components/card/Card.js";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Banner(props) {
-  const { banner, avatar, name, job, posts, followers, following } = props;
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const[loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
@@ -12,56 +21,68 @@ export default function Banner(props) {
     "white !important",
     "#111C44 !important"
   );
+
+  const handleAvatarUpload = (e) => {
+        const formData = new FormData();
+        formData.append('avatarFile', e.target.files[0]);
+
+        try {
+            const fetchAPI = async () => {
+                setLoading(true);
+                const response = await dispatch(updateAvatar(formData));
+                if (response?.payload) {
+                    toast.success('Save avatar successfully.');
+                } else {
+                  if (response?.response?.status === 401) {
+                    await localStorage.removeItem('user');
+                    toast.error('Your account is logged in on another device.');
+                    navigate('/auth/log-in');
+                  } else toast.error('Save avatar unsuccessfully.');
+                }
+                setLoading(false);
+            };
+            fetchAPI();
+        } catch (error) {
+          toast.error('Save avatar unsuccessfully.');
+        }
+  }
+
   return (
     <Card mb={{ base: "0px", lg: "20px" }} align='center'>
-      <Box
-        bg={`url(${banner})`}
-        bgSize='cover'
-        borderRadius='16px'
-        h='131px'
-        w='100%'
+      <input
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={handleAvatarUpload}
       />
       <Avatar
+				_hover={{ cursor: 'pointer' }}
         mx='auto'
-        src={avatar}
-        h='87px'
-        w='87px'
-        mt='-43px'
+        src={user.avatar || "https://th.bing.com/th/id/OIP.aV3_1sg9QEdADlu5byNWbwAAAA?w=271&h=200&c=7&r=0&o=5&dpr=1.4&pid=1.7"}
+        size='2xl'
         border='4px solid'
         borderColor={borderColor}
+        onClick={() => document.querySelector('input[type="file"]').click()}
       />
       <Text color={textColorPrimary} fontWeight='bold' fontSize='xl' mt='10px'>
-        {name}
+        {user.username}
       </Text>
-      <Text color={textColorSecondary} fontSize='sm'>
-        {job}
+      <Text color={textColorSecondary} >
+        Super Admin
       </Text>
-      <Flex w='max-content' mx='auto' mt='26px'>
-        <Flex mx='auto' me='60px' align='center' direction='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
-            {posts}
-          </Text>
-          <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
-            Posts
-          </Text>
-        </Flex>
-        <Flex mx='auto' me='60px' align='center' direction='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
-            {followers}
-          </Text>
-          <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
-            Followers
-          </Text>
-        </Flex>
-        <Flex mx='auto' align='center' direction='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
-            {following}
-          </Text>
-          <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
-            Following
-          </Text>
-        </Flex>
+      <Flex w='100%' mx='auto' mt='26px'>
+        <FormControl mt={4}>
+          <FormLabel>Username</FormLabel>
+          <Input isDisabled placeholder='Username' defaultValue={user.username} />
+        </FormControl>
       </Flex>
+      <Flex w='100%' mx='auto'>
+        <FormControl mt={4}>
+          <FormLabel>Email</FormLabel>
+          <Input isDisabled placeholder='Email' defaultValue={user.email} />
+        </FormControl>
+      </Flex>
+      {loading && <Loading />}
     </Card>
   );
 }

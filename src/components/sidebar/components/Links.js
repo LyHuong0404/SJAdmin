@@ -41,17 +41,18 @@ export function SidebarLinks(props) {
               pt='18px'
               pb='12px'
               key={index}>
-              {route.name}
+                {route.name}
             </Text>
             {createLinks(route.items)}
           </>
         );
       } else if (
         route.path === "/admin/dashboard" ||
-        route.path === "/admin/nft-marketplace" ||
-        route.path === "/admin/data-tables" ||
-        route.path === "/admin/profile" ||
-        route.path === "/auth/logout" 
+        route.path === "/admin/account-management" ||
+        route.path === "/admin/stores-management" ||
+        route.path === "/admin/transactions-management" ||
+        route.path === "/admin/package-management" ||
+        route.path === "/admin/profile"
       ) {
         return (
           <NavLink key={index} to={route.path}>
