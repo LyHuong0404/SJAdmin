@@ -1,7 +1,6 @@
 import {
   Flex,
   Table,
-  Icon,
   Tbody,
   Td,
   Text,
@@ -10,7 +9,6 @@ import {
   Tr,
   useColorModeValue,
   Avatar,
-  Select,
   Input,
   Button,
   IconButton
@@ -22,12 +20,8 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
-// Custom components
 import Card from "components/card/Card";
-
-// Assets
-import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
+import { ArrowUpIcon } from "@chakra-ui/icons";
 import { SearchBar } from "components/navbar/searchBar/SearchBar";
 import Loading from "components/Loading";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
@@ -37,7 +31,8 @@ export default function ColumnsTable(props) {
     columnsData, 
     tableData, 
     changeSearchValue, 
-    loading 
+    loading,
+    exportToExcel
   } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
@@ -75,6 +70,11 @@ export default function ColumnsTable(props) {
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+
+  const handleExport = () => {
+    exportToExcel();
+  }
+
   return (
     <Card
       direction='column'
@@ -94,10 +94,13 @@ export default function ColumnsTable(props) {
           >
             <SearchBar 
               mb={{ base: '10px', md: 'unset' }} 
-              me="20px" 
+              me="10px" 
               borderRadius="20px" 
               onChange={(e) => changeSearchValue(e.target.value)}
             />
+            <Button isDisabled={data.length === 0} leftIcon={<ArrowUpIcon />} colorScheme='blue' mr={3} onClick={handleExport} borderRadius="8px" height="38px">
+              Export
+            </Button>
           </Flex>
       </Flex>
       <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>

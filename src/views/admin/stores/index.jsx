@@ -2,12 +2,12 @@ import { Box } from "@chakra-ui/react";
 import ComplexTable from "views/admin/stores/ComplexTable";
 import { columnsData } from "views/admin/stores/columnsData";
 import React, { useEffect, useState } from "react";
-import { format, subDays } from "date-fns";
 import useDebounce from "hooks";
 import { toast } from 'react-toastify';
 import { convertTimeStamp } from "utils/helper";
 import { useNavigate } from "react-router-dom";
 import { filterStore } from "actions/filteringActions";
+import { exportToFileExcel } from "utils/helper";
 
 
 export default function Settings() {
@@ -54,6 +54,17 @@ export default function Settings() {
     }else setSearchValue(null);
   }
 
+  const handleExportToExcel = () => {
+    const data = stores.map((item) => {
+      return {
+        ID: item.id,
+        "STORE NAME": item.storename,
+        "EXPIRATION DATE": item.expirationdate,
+        ACCOUNT: item.account[0],
+      };
+    })
+    exportToFileExcel(data, "Stores");
+  }
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <ComplexTable
@@ -61,6 +72,7 @@ export default function Settings() {
         tableData={stores}
         changeSearchValue={handleChangeSearchValue}
         loading={isLoading}
+        exportToExcel={handleExportToExcel}
       />
     </Box>
   );

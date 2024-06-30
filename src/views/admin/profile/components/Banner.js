@@ -1,4 +1,3 @@
-// Chakra imports
 import { Avatar, Flex, FormControl, FormLabel, Input, Text, useColorModeValue } from "@chakra-ui/react";
 import { updateAvatar } from "actions/authActions";
 import Loading from "components/Loading";
@@ -14,7 +13,7 @@ export default function Banner(props) {
   const[loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  // Chakra Color Mode
+
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
   const borderColor = useColorModeValue(

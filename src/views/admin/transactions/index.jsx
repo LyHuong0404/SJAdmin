@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { useNavigate } from "react-router-dom";
+import { exportToFileExcel } from "utils/helper";
 
 
 export default function Settings() {
@@ -99,9 +100,24 @@ export default function Settings() {
   }
 
   const handleChangeDateRange = (dates) => {
-    setFromDate(format(dates[0].$d, 'yyyy-MM-dd'));
-    setToDate(format(dates[1].$d, 'yyyy-MM-dd'));
+    if (dates) {
+      setFromDate(format(dates[0].$d, 'yyyy-MM-dd'));
+      setToDate(format(dates[1].$d, 'yyyy-MM-dd'));
+    }
   };
+
+  const handleExportToExcel = () => {
+    const data = transactions.map((item) => {
+      return {
+        ID: item.id,
+        TIME: item.time,
+        AMOUNT: item.amount,
+        ACCOUNT: item.account[0],
+        STATUS: item.paid
+      };
+    })
+    exportToFileExcel(data, "Transactions");
+  }
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -114,6 +130,7 @@ export default function Settings() {
         loading={isLoading}
         defaultDateRange={defaultDateRange}
         onChangeDate={handleChangeDateRange}
+        exportToExcel={handleExportToExcel}
       />
     </Box>
   );

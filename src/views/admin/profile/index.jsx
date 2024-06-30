@@ -1,13 +1,8 @@
 import { Box, Grid } from "@chakra-ui/react";
-
-// Custom components
 import Banner from "views/admin/profile/components/Banner";
 import ChangePassword from "views/admin/profile/components/ChangePassword";
 import PersonalInfo from "views/admin/profile/components/PersonalInfo";
-
-// Assets
 import React from "react";
-
 export default function Overview() {
 
   

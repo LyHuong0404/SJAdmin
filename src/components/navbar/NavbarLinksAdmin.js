@@ -1,4 +1,3 @@
-// Chakra Imports
 import {
 	Avatar,
 	Flex,
@@ -9,11 +8,11 @@ import {
 	Text,
 	useColorModeValue
 } from '@chakra-ui/react';
-// Custom Components
+
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
-// Assets
+
 
 import routes from 'routes.js';
 import { useDispatch, useSelector } from 'react-redux';

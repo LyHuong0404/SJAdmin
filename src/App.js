@@ -1,5 +1,4 @@
-import './App.css';
-import { Routes, Route, useNavigate  } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation  } from 'react-router-dom';
 import AdminLayout from 'layouts/admin';
 import routes from 'routes';
 import { Fragment, useEffect } from 'react';
@@ -7,13 +6,16 @@ import { ProtectedRoute } from 'components/ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { publicRoutes } from 'routes';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { endOfDate } from 'utils/helper';
 import ModalAddServicePackage from 'components/modal/ModalAddServicePackage';
+import 'react-toastify/dist/ReactToastify.css';
+
+import './App.css';
 
 function App() {  
   const { user, show } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleRefreshLogin = async() => {
@@ -31,6 +33,39 @@ function App() {
     }
     handleRefreshLogin();
   }, [])
+
+  useEffect(() => {
+    const path = location.pathname;
+
+    switch (path) {
+        case '/admin/dashboard':
+            document.title = 'SBH - Dashboard';
+            break;
+        case '/admin/account-management':
+            document.title = 'SBH - Account Management';
+            break;
+        case '/admin/stores-management':
+            document.title = 'SBH - Stores Management';
+            break;
+        case '/admin/transactions-management':
+            document.title = 'SBH - Transactions Management';
+            break;
+        case '/admin/package-management':
+            document.title = 'SBH - Package Management';
+            break;
+        case '/admin/profile':
+            document.title = 'SBH - Profile Management';
+            break;
+        case '/auth/log-in':
+            document.title = 'SBH - LogIn';
+            break;
+        case '/auth/forgot-password':
+            document.title = 'SBH - Recovery Password';
+            break;
+        default:
+            document.title = 'SBH - Dashboard';
+        }
+    }, [location.pathname]);
 
   return (
     <div className="App">

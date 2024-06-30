@@ -1,4 +1,3 @@
-// Chakra imports
 import {
   Box,
   Button,
@@ -12,11 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { updateProfile } from "actions/authActions";
 import Loading from "components/Loading";
-// Custom components
 import Card from "components/card/Card.js";
 import IconBox from "components/icons/IconBox";
 import React, { useState } from "react";
-// Assets
 import { MdPerson } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +28,6 @@ export default function PersonalInfo(props) {
   const [fullname, setFullname] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const brandColor = useColorModeValue("brand.500", "white");
   const box = useColorModeValue("secondaryGray.300", "whiteAlpha.100");

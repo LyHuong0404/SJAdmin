@@ -22,14 +22,10 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
-// Custom components
 import Card from "components/card/Card";
-
-// Assets
 import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
 import Loading from "components/Loading";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
 
@@ -42,7 +38,8 @@ export default function ColumnsTable(props) {
     servicePackages, 
     loading,
     defaultDateRange,
-    onChangeDate
+    onChangeDate,
+    exportToExcel
   } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
@@ -85,6 +82,10 @@ export default function ColumnsTable(props) {
     onChangeDate(dates);
   };
 
+  const handleExport = () => {
+    exportToExcel();
+  }
+
   return (
     <Card
       direction='column'
@@ -106,7 +107,7 @@ export default function ColumnsTable(props) {
                 format="DD-MM-YYYY"
                 defaultValue={defaultDateRange}
                 onChange={handleDateChange}
-                style={{ height: '38px', marginRight: '20px', float: 'inline-end' }}
+                style={{ height: '38px', marginRight: '10px', float: 'inline-end' }}
             />
             {servicePackages.length > 0 && 
               <Select
@@ -115,7 +116,7 @@ export default function ColumnsTable(props) {
                   color='#422AFB'
                   w='140px'
                   h='35px'
-                  me='20px'
+                  me='10px'
                   onChange={(e) => changeServicePackage(e.target.value)}
               >
                 <option value='all'>All package</option>
@@ -128,12 +129,16 @@ export default function ColumnsTable(props) {
                 color='#422AFB'
                 w='130px'
                 h='35px'
+                me='10px'
                 onChange={(e) => changeStatusTransaction(e.target.value)}
             >
               <option value='all'>All status</option>
               <option value={true}>Paid</option>
               <option value={false}>Unpaid</option>
             </Select>
+            <Button isDisabled={data.length === 0} leftIcon={<ArrowUpIcon />} colorScheme='blue' mr={3} onClick={handleExport} borderRadius="8px" height="38px">
+              Export
+            </Button>
           </Flex>
       </Flex>
       <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>

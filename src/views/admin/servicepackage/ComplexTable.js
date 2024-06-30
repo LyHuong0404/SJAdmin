@@ -1,11 +1,8 @@
 import { Flex, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue, Input, Button, IconButton, Box, Switch } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
-
-// Custom components
 import Card from "components/card/Card";
 
-// Assets
 import Loading from "components/Loading";
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, EditIcon } from "@chakra-ui/icons";
 import ModalEditServicePackage from "components/modal/ModalEditServicePackage";

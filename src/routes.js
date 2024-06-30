@@ -10,7 +10,7 @@ import {
   MdOutlineWork 
 } from "react-icons/md";
 
-// Admin Imports
+
 import MainDashboard from "views/admin/default";
 import AccountsPage from "views/admin/accounts";
 import Profile from "views/admin/profile";
@@ -19,9 +19,6 @@ import Stores from "views/admin/stores";
 import Dashboard from "layouts/admin"; 
 import ServicePackage from "views/admin/servicepackage";
 import ForgotPassword from "views/admin/forgotpassword";
-
-
-// Auth Imports
 import LogInCentered from "views/auth/logIn";
 
 const routes = [

@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
-
-// Chakra imports
 import { Box } from "@chakra-ui/react";
-
-
-// Custom components
 import ComplexTable from "views/admin/accounts/ComplexTable";
 import Card from "components/card/Card.js";
 
-// Assets
-import { tableColumns } from "views/admin/accounts/tableColumns";
 
+import { tableColumns } from "views/admin/accounts/tableColumns";
 import useDebounce from "hooks";
 import { filterAccount } from "actions/filteringActions";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { exportToFileExcel } from "utils/helper";
 
 
 export default function Accounts(props) {
@@ -73,6 +68,19 @@ export default function Accounts(props) {
     } else setSearchValue(null);
   }
 
+  const handleExportToExcel = () => {
+    const data = accounts.map((item) => {
+      return {
+        ID: item.id,
+        USERNAME: item.username[0],
+        PHONE: item.phone,
+        EMAIL: item.email,
+        ACTIVE: item.activate
+      };
+    })
+    exportToFileExcel(data, "Accounts");
+  }
+
   return (
     <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
       <Card px='0px' mb='20px'>
@@ -83,6 +91,7 @@ export default function Accounts(props) {
             changeStatusSuccess={changeStatusSuccess}
             loading={isLoading}
             changeSearchValue={handleChangeSearchValue}
+            exportToExcel={handleExportToExcel}
           />
       </Card>
     </Box>

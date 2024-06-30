@@ -1,10 +1,7 @@
-// Chakra imports
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
-// Custom components
 import Card from "components/card/Card.js";
 import LineChart from "components/charts/LineChart";
 import React, { useEffect, useState } from "react";
-// Assets
 import { lineChartOptionsReportAmount } from "variables/charts";
 
 import { DatePicker } from 'antd';
@@ -28,7 +25,6 @@ export default function TotalSpent(props) {
   const [chartOptions, setChartOptions] = useState(lineChartOptionsReportAmount);
 
 
-  // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   useEffect(() => {
@@ -94,8 +90,10 @@ export default function TotalSpent(props) {
   }, [fromDate, toDate])
 
   const handleChangeDateRange = (dates) => {
-    setFromDate(format(dates[0].$d, 'yyyy-MM-dd'));
-    setToDate(format(dates[1].$d, 'yyyy-MM-dd'));
+    if (dates) {
+      setFromDate(format(dates[0].$d, 'yyyy-MM-dd'));
+      setToDate(format(dates[1].$d, 'yyyy-MM-dd'));
+    }
   };
 
   return (

@@ -23,13 +23,14 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
+import { ArrowUpIcon } from "@chakra-ui/icons";
 import { SearchBar } from "components/navbar/searchBar/SearchBar";
 import Loading from "components/Loading";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ModalConfirmation from "components/modal/ModalConfirmation";
 
 function TopCreatorTable(props) {
-  const { columnsData, tableData, changeTypeAccount, changeStatusAccount, changeSearchValue, loading, changeStatusSuccess } = props;
+  const { columnsData, tableData, changeTypeAccount, changeStatusAccount, changeSearchValue, loading, changeStatusSuccess, exportToExcel } = props;
   const [openModalConfirmLock, setOpenModalConfirmLock] = useState(false);
   const [dataLock, setDataLock] = useState({});
 
@@ -74,6 +75,10 @@ function TopCreatorTable(props) {
     setDataLock(cell.row.original);
   }
 
+  const handleExport = () => {
+    exportToExcel();
+  }
+
   return (
       <Flex
         direction='column'
@@ -90,13 +95,12 @@ function TopCreatorTable(props) {
           <Text color={textColor} fontSize='xl' fontWeight='600'>
             Accounts Management
           </Text>
-          {/* <Button variant='action'>See all</Button> */}
           <Flex
             align='center'
           >
             <SearchBar 
               mb={{ base: '10px', md: 'unset' }} 
-              me="20px" 
+              me="10px" 
               borderRadius="20px" 
               onChange={(e) => changeSearchValue(e.target.value)}
             />
@@ -106,7 +110,7 @@ function TopCreatorTable(props) {
                 color='#422AFB'
                 w='140px'
                 h='35px'
-                me='20px'
+                me='10px'
                 onChange={(e) => changeTypeAccount(e.target.value)}
             >
               <option value='all'>All accounts</option>
@@ -119,12 +123,16 @@ function TopCreatorTable(props) {
                 color='#422AFB'
                 w='130px'
                 h='35px'
+                me='10px'
                 onChange={(e) => changeStatusAccount(e.target.value)}
             >
               <option value='option1'>All status</option>
               <option value='option2'>Active</option>
               <option value='option3'>Inactive</option>
             </Select>
+            <Button isDisabled={data.length === 0} leftIcon={<ArrowUpIcon />} colorScheme='blue' mr={3} onClick={handleExport} borderRadius="8px" height="38px">
+              Export
+            </Button>
           </Flex>
         </Flex>
         <Table {...getTableProps()} variant='simple' color='gray.500'>

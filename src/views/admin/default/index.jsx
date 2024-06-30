@@ -5,7 +5,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-// Custom components
 
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";

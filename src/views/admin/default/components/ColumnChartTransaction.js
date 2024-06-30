@@ -1,7 +1,6 @@
-// Chakra imports
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
-// Custom components
+
 import BarChart from "components/charts/BarChart";
 import React, { useEffect, useState } from "react";
 import {
@@ -124,8 +123,10 @@ export default function ColumnChartTransaction(props) {
   }, [fromDate, toDate]) 
 
   const handleChangeDateRange = (dates) => {
-    setFromDate(format(dates[0].$d, 'yyyy-MM-dd'));
-    setToDate(format(dates[1].$d, 'yyyy-MM-dd'));
+    if (dates) {
+      setFromDate(format(dates[0].$d, 'yyyy-MM-dd'));
+      setToDate(format(dates[1].$d, 'yyyy-MM-dd'));
+    }
   };
 
   return (
