@@ -19,19 +19,20 @@ export default function Accounts(props) {
   const debounceValue = useDebounce(searchValue, 500); 
   const [isVendor, setIsVendor] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [statusAccountFilter, setStatusAccountFilter] = useState(null);
 
   const getListAccounts = async(debounceValue, isVendor)=> {
     setIsLoading(true);
-    const response = await filterAccount({ pageIndex: 0, pageSize: 1000, keySearch: debounceValue, isVendor });
+    const response = await filterAccount({ pageIndex: 0, pageSize: 1000, keySearch: debounceValue, isVendor, activate: statusAccountFilter });
     if (response) {
-      const formattedResponse = response?.content?.map((item) => ({
+      let formattedResponse = response?.content?.map((item) => ({
         id: item.id,
         username: [item.username, item.avatar],
         phone: item.phone,
         email: item.email,
         active: item.activate
       }));
-      setAccounts(formattedResponse);
+      setAccounts(formattedResponse); 
     } else {
         if (response?.response?.status === 401) {
           await localStorage.removeItem('user');
@@ -50,7 +51,7 @@ export default function Accounts(props) {
         setIsLoading(false);
         toast.error('Loading list of accounts unsuccessfully.');        
     }
-  }, [debounceValue, isVendor])  
+  }, [debounceValue, isVendor, statusAccountFilter])  
 
   const handleChangeTypeAccount = (data) => {
     if (data === 'all') {
@@ -82,7 +83,10 @@ export default function Accounts(props) {
   }
 
   const handleChangeStatusAccount = (value) => {
-
+    if (value === 'all') {
+      value = null;
+    }
+    setStatusAccountFilter(value);
   }
 
   return (

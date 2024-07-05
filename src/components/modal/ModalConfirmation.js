@@ -1,4 +1,4 @@
-import { Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,7 +10,6 @@ import { lockServicePackage } from "actions/servicepackageActions";
 import Loading from "components/Loading";
 
 function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
-    const { onClose } = useDisclosure()
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [target, setTarget] = useState(action || "");
@@ -26,7 +25,7 @@ function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
             } else response = await unlockAccount(data.id);
             if (response?.code === 0) {
               toast.success('Save account successfully.');    
-              onClose();
+              onCloseModal();
             } else {
               if (response?.response?.status === 401) {
                 await localStorage.removeItem('user');
@@ -40,7 +39,7 @@ function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
             } else response = await unlockServicePackage(data.id);
             if (response?.code === 0) {
               toast.success('Save service package successfully.');    
-              onClose();
+              onCloseModal();
             } else {
               if (response?.response?.status === 401) {
                 await localStorage.removeItem('user');

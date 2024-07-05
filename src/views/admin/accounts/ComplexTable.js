@@ -128,8 +128,8 @@ function TopCreatorTable(props) {
                 onChange={(e) => changeStatusAccount(e.target.value)}
             >
               <option value='all'>All status</option>
-              <option value='active'>Active</option>
-              <option value='inactive'>Inactive</option>
+              <option value={true}>Active</option>
+              <option value={false}>Inactive</option>
             </Select>
             <Button isDisabled={data.length === 0} leftIcon={<ArrowUpIcon />} colorScheme='blue' mr={3} onClick={handleExport} borderRadius="8px" height="38px">
               Export

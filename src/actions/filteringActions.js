@@ -11,9 +11,9 @@ export const getNewInfoToday = async() => {
     }
 }
 
-export const filterAccount = async({ pageIndex, pageSize, keySearch, isVendor }) => {
+export const filterAccount = async({ pageIndex, pageSize, keySearch, isVendor, activate }) => {
     try {
-        const filters = { pageIndex, pageSize, keySearch, isVendor  };
+        const filters = { pageIndex, pageSize, keySearch, isVendor, activate };
         const filteredParams = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== null));
         const response = await httprequest.get('admin/filter-user', { params: filteredParams });
         return response;
