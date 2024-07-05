@@ -1,6 +1,6 @@
-import * as httprequest from 'utils/httprequest';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import * as httprequest from 'utils/httprequest';
 
 //login
 export const login = createAsyncThunk('auth', async ({ username, password, provider = "LOCAL" }, { rejectWithValue }) => {

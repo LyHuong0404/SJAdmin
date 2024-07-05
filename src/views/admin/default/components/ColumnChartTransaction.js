@@ -1,20 +1,17 @@
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
-import Card from "components/card/Card.js";
-
-import BarChart from "components/charts/BarChart";
-import React, { useEffect, useState } from "react";
-import {
-  barChartOptionsTransactions,
-} from "variables/charts";
-
-import { filterTransaction } from "actions/filteringActions";
 import { format } from "date-fns";
-import { convertTimeStamp } from "utils/helper";
+import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { toast } from "react-toastify";
-import Loading from "components/Loading";
 import dayjs from "dayjs";
 import { DatePicker } from 'antd';
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+import Card from "components/card/Card.js";
+import BarChart from "components/charts/BarChart";
+import { barChartOptionsTransactions } from "variables/charts";
+import { filterTransaction } from "actions/filteringActions";
+import { convertTimeStamp } from "utils/helper";
+import Loading from "components/Loading";
 const { RangePicker } = DatePicker;
 
 

@@ -1,15 +1,16 @@
 import { Box } from "@chakra-ui/react";
-import ComplexTable from "views/admin/transactions/ComplexTable";
-import { columnsData } from "views/admin/transactions/columnsData";
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { filterTransaction } from "actions/filteringActions";
-import { toast } from 'react-toastify';
-import { convertTimeStamp } from "utils/helper";
-import { filterServicePackage } from "actions/servicepackageActions";
 import { format } from "date-fns";
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
-import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+
+import { convertTimeStamp } from "utils/helper";
+import ComplexTable from "views/admin/transactions/ComplexTable";
+import { columnsData } from "views/admin/transactions/columnsData";
+import { filterTransaction } from "actions/filteringActions";
+import { filterServicePackage } from "actions/servicepackageActions";
 import { exportToFileExcel } from "utils/helper";
 
 
@@ -34,7 +35,7 @@ export default function Settings() {
                 id: item.id,
                 time: item.paid ? (convertTimeStamp(item.payDate, 'dd/MM/yyyy') + ' - ' + item.payTime) : "",
                 amount: item.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'),
-                account: [item.username, "https://th.bing.com/th/id/OIP.aV3_1sg9QEdADlu5byNWbwAAAA?w=271&h=200&c=7&r=0&o=5&dpr=1.4&pid=1.7"],
+                account: [item.username, item.avatar],
                 paid: item.paid ? "Paid" : "Unpaid"
               }));
               setTransactions(formattedResponse);

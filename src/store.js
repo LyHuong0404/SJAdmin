@@ -1,7 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import authSlice from 'reducers/authSlice';
 import thunk from 'redux-thunk';
+
+import authSlice from 'reducers/authSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice

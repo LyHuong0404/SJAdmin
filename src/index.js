@@ -1,14 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from 'App';
-import reportWebVitals from './reportWebVitals';
-import 'assets/css/App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from 'theme/theme';
 import { ThemeEditorProvider } from '@hypertheme-editor/chakra-ui';
 import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import './index.css';
+import App from 'App';
+import reportWebVitals from './reportWebVitals';
+import 'assets/css/App.css';
 import store from 'store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

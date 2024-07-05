@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { login, updateProfile, updateAvatar, logout } from 'actions/authActions';
 
 // initialize TOKEN from local storage

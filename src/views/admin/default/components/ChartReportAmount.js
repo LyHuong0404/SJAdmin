@@ -1,17 +1,17 @@
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
-import Card from "components/card/Card.js";
-import LineChart from "components/charts/LineChart";
 import React, { useEffect, useState } from "react";
-import { lineChartOptionsReportAmount } from "variables/charts";
-
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { DatePicker } from 'antd';
 import { format } from "date-fns";
 import dayjs from "dayjs";
+
+import { lineChartOptionsReportAmount } from "variables/charts";
 import { reportAmount } from "actions/filteringActions";
 import { convertTimeStamp } from "utils/helper";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import Loading from "components/Loading";
+import Card from "components/card/Card.js";
+import LineChart from "components/charts/LineChart";
 const { RangePicker } = DatePicker;
 
 export default function TotalSpent(props) {

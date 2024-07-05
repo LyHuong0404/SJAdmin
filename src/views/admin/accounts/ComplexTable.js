@@ -24,9 +24,10 @@ import {
   useTable,
 } from "react-table";
 import { ArrowUpIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+
 import { SearchBar } from "components/navbar/searchBar/SearchBar";
 import Loading from "components/Loading";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ModalConfirmation from "components/modal/ModalConfirmation";
 
 function TopCreatorTable(props) {
@@ -126,9 +127,9 @@ function TopCreatorTable(props) {
                 me='10px'
                 onChange={(e) => changeStatusAccount(e.target.value)}
             >
-              <option value='option1'>All status</option>
-              <option value='option2'>Active</option>
-              <option value='option3'>Inactive</option>
+              <option value='all'>All status</option>
+              <option value='active'>Active</option>
+              <option value='inactive'>Inactive</option>
             </Select>
             <Button isDisabled={data.length === 0} leftIcon={<ArrowUpIcon />} colorScheme='blue' mr={3} onClick={handleExport} borderRadius="8px" height="38px">
               Export
@@ -212,8 +213,8 @@ function TopCreatorTable(props) {
                     } else if (cell.column.Header === "Active") {
                       data = (
                         <Box>
-                        <Switch colorScheme='green' isChecked={cell.value} onChange={() => handleOpenModal(cell)}/>
-                      </Box>
+                          <Switch colorScheme='green' isChecked={cell.value} onChange={() => handleOpenModal(cell)}/>
+                        </Box>
                       );
                     }
                     return (
@@ -293,7 +294,7 @@ function TopCreatorTable(props) {
           }
         </Flex>
         }
-        {openModalConfirmLock && <ModalConfirmation data={dataLock} action='account' onClose={() => setOpenModalConfirmLock(false)} onSuccess={() => changeStatusSuccess()}/>}
+        {openModalConfirmLock && <ModalConfirmation data={dataLock} action='account' onCloseModal={() => setOpenModalConfirmLock(false)} onSuccess={() => changeStatusSuccess()}/>}
       </Flex>
     );
 }

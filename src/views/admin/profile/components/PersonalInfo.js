@@ -9,15 +9,16 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { updateProfile } from "actions/authActions";
-import Loading from "components/Loading";
-import Card from "components/card/Card.js";
-import IconBox from "components/icons/IconBox";
 import React, { useState } from "react";
 import { MdPerson } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { updateProfile } from "actions/authActions";
+import Loading from "components/Loading";
+import Card from "components/card/Card.js";
+import IconBox from "components/icons/IconBox";
 
 export default function PersonalInfo(props) {
   const { used, total, ...rest } = props;

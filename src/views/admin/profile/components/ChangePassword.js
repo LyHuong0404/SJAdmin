@@ -11,17 +11,17 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-
-import { MdLock } from "react-icons/md";
-import Card from "components/card/Card.js";
-import IconBox from "components/icons/IconBox";
-import React, { useState } from "react";
-import { changePw } from "actions/authActions";
-import { toast } from "react-toastify";
-import Loading from "components/Loading";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { MdLock } from "react-icons/md";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+
+import Card from "components/card/Card.js";
+import IconBox from "components/icons/IconBox";
+import { changePw } from "actions/authActions";
+import Loading from "components/Loading";
 
 
 export default function ChangePassword(props) {

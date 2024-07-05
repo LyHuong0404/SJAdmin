@@ -1,10 +1,10 @@
 import { Flex, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue, Input, Button, IconButton, Box, Switch } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
-import Card from "components/card/Card";
-
-import Loading from "components/Loading";
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, EditIcon } from "@chakra-ui/icons";
+
+import Card from "components/card/Card";
+import Loading from "components/Loading";
 import ModalEditServicePackage from "components/modal/ModalEditServicePackage";
 import ModalAddServicePackage from "components/modal/ModalAddServicePackage";
 import ModalConfirmation from "components/modal/ModalConfirmation";
@@ -144,7 +144,11 @@ export default function ColumnsTable(props) {
                     } else if (cell.column.Header === "ACTIVE") {
                       data = (
                         <Box>
-                          <Switch colorScheme='green' isChecked={cell.value} onChange={() => setOpenModalConfirmLock(true)}/>
+                          <Switch colorScheme='green' isChecked={cell.value} onChange={() => {
+                              setOpenModalConfirmLock(true);
+                              setDataEdit(row.values);
+                            }}
+                          />
                         </Box>
                       );
                     }  
@@ -238,7 +242,7 @@ export default function ColumnsTable(props) {
       </Card>
         {openModalAdd && <ModalAddServicePackage onClose={() => setOpenModalAdd(false)} onSuccess={() => CRUDSuccess()}/>}
         {openModalEdit && <ModalEditServicePackage data={dataEdit} onClose={() => setOpenModalEdit(false)} onSuccess={() => CRUDSuccess()}/>}
-        {openModalConfirmLock && <ModalConfirmation action="servicepackage" data={dataEdit} onClose={() => setOpenModalConfirmLock(false)} onSuccess={() => CRUDSuccess()}/>}
+        {openModalConfirmLock && <ModalConfirmation action="servicepackage" data={dataEdit} onCloseModal={() => setOpenModalConfirmLock(false)} onSuccess={() => CRUDSuccess()}/>}
     </>
   );
 }

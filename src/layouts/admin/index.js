@@ -1,11 +1,10 @@
 import { Portal, Box, useDisclosure } from '@chakra-ui/react';
+import React, { useState } from 'react';
 
+import routes from 'routes.js';
 import Navbar from 'components/navbar/NavbarAdmin.js';
 import Sidebar from 'components/sidebar/Sidebar.js';
 import { SidebarContext } from 'contexts/SidebarContext';
-import React, { useState } from 'react';
-import routes from 'routes.js';
-
 
 export default function Dashboard({ children }) {
 	const [ fixed ] = useState(false);

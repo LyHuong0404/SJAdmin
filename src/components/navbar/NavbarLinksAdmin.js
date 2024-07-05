@@ -8,10 +8,10 @@ import {
 	Text,
 	useColorModeValue
 } from '@chakra-ui/react';
-
-import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import { SidebarResponsive } from 'components/sidebar/Sidebar';
 
 
 import routes from 'routes.js';

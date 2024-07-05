@@ -16,11 +16,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import DefaultAuth from "layouts/auth/Default";
-import illustration from "assets/img/intro.jpg";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useState } from "react";
 import { toast } from 'react-toastify';
+
+import illustration from "assets/img/intro.jpg";
 import Loading from "components/Loading";
 import { getCodeForgotPassword } from "actions/authActions";
 import { checkCodeForgotPassword } from "actions/authActions";

@@ -1,14 +1,16 @@
-import { Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { unlockAccount } from "actions/authActions";
 import { lockAccount } from "actions/authActions";
 import { unlockServicePackage } from "actions/servicepackageActions";
 import { lockServicePackage } from "actions/servicepackageActions";
 import Loading from "components/Loading";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
-function ModalConfirmation({ data, onClose, onSuccess, action }) {
+function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
+    const { onClose } = useDisclosure()
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [target, setTarget] = useState(action || "");
@@ -19,7 +21,7 @@ function ModalConfirmation({ data, onClose, onSuccess, action }) {
           setLoading(true);
           let response;
           if (action === 'account') {
-            if(data?.activate) {
+            if(data?.active) {
               response = await lockAccount(data.id);
             } else response = await unlockAccount(data.id);
             if (response?.code === 0) {
@@ -59,7 +61,7 @@ function ModalConfirmation({ data, onClose, onSuccess, action }) {
 
 
     return (
-      <Modal blockScrollOnMount={false} isOpen={true} onClose={onClose}>
+      <Modal blockScrollOnMount={false} isOpen={true} onClose={onCloseModal}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Notifications</ModalHeader>
@@ -67,8 +69,8 @@ function ModalConfirmation({ data, onClose, onSuccess, action }) {
           <ModalBody>
             <Text>
               {target === 'servicepackage' ? 
-                data.activated ? "Service package will be locked. Sure?" : "Service package will be unlocked. Sure?"
-                : data.activate ? "Account will be unlocked. Sure?" : "Account will be locked. Sure?"}
+                data.active ? "Service package will be locked. Sure?" : "Service package will be unlocked. Sure?"
+                : data.active ? "Account will be locked. Sure?" : "Account will be unlocked. Sure?"}
             </Text>
           </ModalBody>
 

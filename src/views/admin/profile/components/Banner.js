@@ -1,11 +1,12 @@
 import { Avatar, Flex, FormControl, FormLabel, Input, Text, useColorModeValue } from "@chakra-ui/react";
-import { updateAvatar } from "actions/authActions";
-import Loading from "components/Loading";
-import Card from "components/card/Card.js";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { updateAvatar } from "actions/authActions";
+import Loading from "components/Loading";
+import Card from "components/card/Card.js";
 
 export default function Banner(props) {
   const { user } = useSelector((state) => state.auth);

@@ -1,10 +1,11 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
-import { updateServicePackage } from "actions/servicepackageActions";
-import Loading from "components/Loading";
 import { useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { updateServicePackage } from "actions/servicepackageActions";
+import Loading from "components/Loading";
 
 function ModalEditServicePackage({ data, onClose, onSuccess }) {
     const navigate = useNavigate(); 

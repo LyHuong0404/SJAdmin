@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+
 import { HSeparator } from "components/separator/Separator";
 
 export function SidebarBrand() {

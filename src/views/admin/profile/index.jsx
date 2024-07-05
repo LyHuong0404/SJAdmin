@@ -1,10 +1,11 @@
+import React from "react";
 import { Box, Grid } from "@chakra-ui/react";
+
 import Banner from "views/admin/profile/components/Banner";
 import ChangePassword from "views/admin/profile/components/ChangePassword";
 import PersonalInfo from "views/admin/profile/components/PersonalInfo";
-import React from "react";
-export default function Overview() {
 
+export default function Overview() {
   
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>

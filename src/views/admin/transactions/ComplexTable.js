@@ -22,11 +22,13 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import Card from "components/card/Card";
-import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
-import Loading from "components/Loading";
-import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { DatePicker } from 'antd';
+import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from "@chakra-ui/icons";
+import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
+
+import Card from "components/card/Card";
+import Loading from "components/Loading";
+
 const { RangePicker } = DatePicker;
 
 export default function ColumnsTable(props) {

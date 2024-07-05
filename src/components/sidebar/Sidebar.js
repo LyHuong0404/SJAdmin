@@ -11,17 +11,17 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import Content from "components/sidebar/components/Content";
+import { Scrollbars } from "react-custom-scrollbars-2";
+import PropTypes from "prop-types";
+import { IoMenuOutline } from "react-icons/io5";
+
 import {
   renderThumb,
   renderTrack,
   renderView,
 } from "components/scrollbar/Scrollbar";
-import { Scrollbars } from "react-custom-scrollbars-2";
-import PropTypes from "prop-types";
+import Content from "components/sidebar/components/Content";
 
-
-import { IoMenuOutline } from "react-icons/io5";
 
 function Sidebar(props) {
   const { routes } = props;

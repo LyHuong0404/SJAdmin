@@ -4,23 +4,21 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
-
-
-import MiniStatistics from "components/card/MiniStatistics";
-import IconBox from "components/icons/IconBox";
 import React, { useEffect, useState } from "react";
 import {
   MdLoop,
   MdOutlineStorefront,
   MdGroupAdd 
 } from "react-icons/md";
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
+
+import MiniStatistics from "components/card/MiniStatistics";
+import IconBox from "components/icons/IconBox";
 import ChartReportAmount from "views/admin/default/components/ChartReportAmount";
 import ColumnChartTransaction from "views/admin/default/components/ColumnChartTransaction";
-import { toast } from 'react-toastify';
-
 import { getNewInfoToday } from "actions/filteringActions";
-import { useNavigate } from "react-router-dom";
 
 export default function UserReports() {
   const navigate = useNavigate();

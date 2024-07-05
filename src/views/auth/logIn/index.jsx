@@ -14,14 +14,15 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import DefaultAuth from "layouts/auth/Default";
 import illustration from "assets/img/intro.jpg";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "actions/authActions";
 import { toast } from 'react-toastify';
+
+import DefaultAuth from "layouts/auth/Default";
+import { login } from "actions/authActions";
 import Loading from "components/Loading";
 
 

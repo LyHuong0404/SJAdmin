@@ -20,11 +20,11 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import Card from "components/card/Card";
-import { ArrowUpIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from "@chakra-ui/icons";
+
 import { SearchBar } from "components/navbar/searchBar/SearchBar";
 import Loading from "components/Loading";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import Card from "components/card/Card";
 
 export default function ColumnsTable(props) {
   const { 

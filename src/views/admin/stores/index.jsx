@@ -1,11 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+
+import useDebounce from "hooks";
+import { convertTimeStamp } from "utils/helper";
 import ComplexTable from "views/admin/stores/ComplexTable";
 import { columnsData } from "views/admin/stores/columnsData";
-import React, { useEffect, useState } from "react";
-import useDebounce from "hooks";
-import { toast } from 'react-toastify';
-import { convertTimeStamp } from "utils/helper";
-import { useNavigate } from "react-router-dom";
 import { filterStore } from "actions/filteringActions";
 import { exportToFileExcel } from "utils/helper";
 
@@ -28,7 +29,7 @@ export default function Settings() {
                 id: item.id,
                 storename: item.nameStore,
                 expirationdate: convertTimeStamp(item.expireAt, 'dd/MM/yyyy'),
-                account: [item.username, "https://th.bing.com/th/id/OIP.aV3_1sg9QEdADlu5byNWbwAAAA?w=271&h=200&c=7&r=0&o=5&dpr=1.4&pid=1.7"],
+                account: [item.username, item.avatar],
               }));
               setStores(formattedResponse);
             } else {
