@@ -5,26 +5,32 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Switch,
 	Text,
+	Tooltip,
 	useColorModeValue
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
-
-
 import routes from 'routes.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { logout } from 'actions/authActions';
-import { toast } from 'react-toastify';
+import ModalConfirmation from 'components/modal/ModalConfirmation';
+import { handleMaintenence } from 'actions/otherActions';
 
 export default function HeaderLinks(props) {
 	const dispatch = useDispatch();
 	const { secondary } = props;
 	const navigate = useNavigate();
 	const { user } = useSelector((state) => state.auth);
+	const [statusSystem, setStatusSystem] = useState(false);
+	const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
 	// Chakra Color Mode
 	let menuBg = useColorModeValue('white', 'navy.800');
 	const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -33,6 +39,10 @@ export default function HeaderLinks(props) {
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.18)',
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
 	);
+	
+	useEffect(() => {
+		handleUpdateMaintenence(false);
+	}, [])
 
 	const handleLogout = () => {
 		try {
@@ -46,6 +56,25 @@ export default function HeaderLinks(props) {
 		}
 	}
 
+	const handleUpdateMaintenence = async(status) => {
+		try {
+			const response = await handleMaintenence({ update: status });
+			if (response?.code === 0) {      
+			  setStatusSystem(response.data.maintenance);
+			  setOpenModalConfirm(false);
+			} else {
+				if (response?.response?.status === 401) {
+					setOpenModalConfirm(false);
+					await localStorage.removeItem('user');
+					navigate('/auth/log-in');
+				} 
+				else toast.error('System status update failed.');  
+			}
+		} catch(err) {
+			toast.error('System status update failed.');  
+		}
+	}
+
 	return (
 		<Flex
 			w={{ sm: '100%', md: 'auto' }}
@@ -56,7 +85,6 @@ export default function HeaderLinks(props) {
 			p="10px"
 			borderRadius="30px"
 			boxShadow={shadow}>
-			{/* <SearchBar mb={secondary ? { base: '10px', md: 'unset' } : 'unset'} me="10px" borderRadius="30px" /> */}
 			
 			<SidebarResponsive routes={routes} />
 
@@ -92,6 +120,12 @@ export default function HeaderLinks(props) {
 						<MenuItem _hover={{ bg: 'none', cursor: 'pointer' }} _focus={{ bg: 'none' }} borderRadius="8px" px="14px" onClick={() => navigate('/admin/profile')}>
 							<Text fontSize="sm">Profile Settings</Text>
 						</MenuItem>
+						<Tooltip label="The system will stop working during maintenance">
+							<MenuItem _hover={{ bg: 'none', cursor: 'pointer' }} _focus={{ bg: 'none' }} borderRadius="8px" px="14px" onClick={() => navigate('/admin/profile')} style={{ display: 'flex', alignItems: 'space-between'}}>
+								<Text fontSize="sm" style={{ marginRight: '20px'}}>System is maintenance</Text>
+								<Switch colorScheme='green' isChecked={statusSystem} onChange={() => handleUpdateMaintenence(true)}/>
+							</MenuItem>
+						</Tooltip>
 						<MenuItem
 							_hover={{ bg: 'none', cursor: 'pointer' }}
 							_focus={{ bg: 'none' }}
@@ -103,6 +137,7 @@ export default function HeaderLinks(props) {
 					</Flex>
 				</MenuList>
 			</Menu>
+			{openModalConfirm && <ModalConfirmation action='maintenence' onCloseModal={() => setOpenModalConfirm(false)} onSuccess={() => handleUpdateMaintenence(true)}/>}
 		</Flex>
 	);
 }

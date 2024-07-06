@@ -44,14 +44,10 @@ function LogIn() {
         const fetchAPI = async() => {
           setLoading(true);
           const response = await dispatch(login({ username, password }));
-          if (response) {      
-              if (response?.payload?.user?.profile) {
-                  if (response?.payload?.roles?.some((item) => item === 'ROLE_ADMIN')) {
-                      navigate('/admin/dashboard');
-                  } else toast.error('Access denied.');           
-              } else {
-                toast.error('Access denied.');        
-              }
+          if (response?.type.includes('fulfilled')) {          
+            if (response?.payload?.roles?.some((item) => item === 'ROLE_ADMIN')) {
+                navigate('/admin/dashboard');
+            } else toast.error('Access denied.');           
           } else {
               toast.error('Username or password incorrect.');  
           }

@@ -39,7 +39,7 @@ export default function Settings() {
                 paid: item.paid ? "Paid" : "Unpaid"
               }));
               setTransactions(formattedResponse);
-            } else {
+            } else {   
               if (response?.response?.status === 401) {
                 await localStorage.removeItem('user');
                 toast.error('Your account is logged in on another device.');

@@ -8,6 +8,7 @@ import { lockAccount } from "actions/authActions";
 import { unlockServicePackage } from "actions/servicepackageActions";
 import { lockServicePackage } from "actions/servicepackageActions";
 import Loading from "components/Loading";
+import { handleMaintenence } from "actions/otherActions";
 
 function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
     const navigate = useNavigate();
@@ -33,7 +34,10 @@ function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
                 navigate('/auth/log-in');
               }else toast.error('Save account unsuccessfully.');
             }
-          } else {
+          } else if (action === 'maintenence') {
+            onSuccess();
+          }
+          else {
             if(data?.active) {
               response = await lockServicePackage(data.id);
             } else response = await unlockServicePackage(data.id);
@@ -47,7 +51,7 @@ function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
                 navigate('/auth/log-in');
               }else toast.error('Save service package unsuccessfully.');
             }
-          } 
+          }
           onSuccess(); 
           setLoading(false);
         }
@@ -69,7 +73,7 @@ function ModalConfirmation({ data, onCloseModal, onSuccess, action }) {
             <Text>
               {target === 'servicepackage' ? 
                 data.active ? "Service package will be locked. Sure?" : "Service package will be unlocked. Sure?"
-                : data.active ? "Account will be locked. Sure?" : "Account will be unlocked. Sure?"}
+                : (action === 'maintenence' ? "The system status will change. Sure?" : (data.active ? "Account will be locked. Sure?" : "Account will be unlocked. Sure?"))}
             </Text>
           </ModalBody>
 

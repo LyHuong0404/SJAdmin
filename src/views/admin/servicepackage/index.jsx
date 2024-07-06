@@ -33,7 +33,7 @@ export default function ServicePackages() {
         await localStorage.removeItem('user');
         toast.error('Your account is logged in on another device.');
         navigate('/auth/log-in');
-      } else toast.error('Loading list of transactions unsuccessfully.');               
+      } else toast.error('Loading list of service packages unsuccessfully.');               
     }
     setIsLoading(false);
   }
@@ -43,7 +43,7 @@ export default function ServicePackages() {
       getAllServicePackage();     
     } catch(e){
         setIsLoading(false);
-        toast.error('Loading list of transactions unsuccessfully.');        
+        toast.error('Loading list of service packages unsuccessfully.');        
     }
   }, []) 
 
