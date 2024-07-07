@@ -8,13 +8,12 @@ import routes from 'routes';
 import { ProtectedRoute } from 'components/ProtectedRoute';
 import { publicRoutes } from 'routes';
 import { endOfDate } from 'utils/helper';
-import ModalAddServicePackage from 'components/modal/ModalAddServicePackage';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './App.css';
 
 function App() {  
-  const { user, show } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -118,7 +117,6 @@ function App() {
               );
           })}
       </Routes>
-      {show && <ModalAddServicePackage />}
       <ToastContainer autoClose={2000} />
     </div>
   );

@@ -8,7 +8,6 @@ const user = JSON.parse(userJson)?.user || null;
 const token = JSON.parse(userJson)?.accessToken || null;
 
 const initialState = {
-    show:false,
     loading: false,
     user: user,
     token: token,
@@ -56,7 +55,6 @@ const userSlice = createSlice({
       .addCase(updateAvatar.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.user = payload;
-        state.show = true;
       })
       .addCase(updateAvatar.rejected, (state, { payload }) => {
         state.loading = false;
