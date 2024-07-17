@@ -56,23 +56,3 @@ export const reportAmount = async({ fromDate, toDate }) => {
         return err;
     }
 }
-
-export const sendNotificationVendorExpire = async() => {
-    try {
-        const response = await httprequest.get('admin/send-notification-vendor-expire');
-        return response;
-    } catch (err) {
-        console.log("Error when admin is sending notifications: ", err);
-        return err;
-    }
-}
-
-export const sendNotificationProductExpire = async() => {
-    try {
-        const response = await httprequest.get('admin/send-notification-product-expire');
-        return response;
-    } catch (err) {
-        console.log("Error when admin is sending notifications: ", err);
-        return err;
-    }
-}
